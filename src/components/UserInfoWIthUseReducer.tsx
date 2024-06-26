@@ -1,13 +1,18 @@
-import React, { useReducer } from "react";
+import React, { ChangeEvent, useReducer } from "react";
+
+type TAction = {
+  type: string;
+  payload: string;
+};
 
 const initialState = {
   name: "",
   email: "",
   password: "",
-  hobbies: [],
+  hobbies: [] as string[],
 };
 
-const reducer = (currentState: any, action: any) => {
+const reducer = (currentState: typeof initialState, action: TAction) => {
   switch (action.type) {
     case "addName":
       return { ...currentState, name: action.payload };
@@ -18,7 +23,10 @@ const reducer = (currentState: any, action: any) => {
       return { ...currentState, password: action.payload };
 
     case "addHobies":
-      return { ...currentState, hobbies: [...currentState.hobbies] };
+      return {
+        ...currentState,
+        hobbies: [...currentState.hobbies, action.payload],
+      };
 
     default:
       return currentState;
@@ -27,11 +35,18 @@ const reducer = (currentState: any, action: any) => {
 
 const UserInfoWIthUseReducer = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state);
+
+  const handleSubmit = (e: ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(state);
+  };
 
   return (
     <div className="flex h-screen justify-center items-center">
-      <form className="flex justify-between gap-2 py-16 px-10 border border-violet-500 rounded-md">
+      <form
+        onSubmit={handleSubmit}
+        className="flex justify-between gap-2 py-16 px-10 border border-violet-500 rounded-md"
+      >
         <input
           onChange={(e) =>
             dispatch({ type: "addName", payload: e.target.value })
