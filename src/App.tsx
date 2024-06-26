@@ -2,14 +2,16 @@ import "./App.css";
 import Example from "./components/Example";
 import UserInfoWIthUseReducer from "./components/UserInfoWIthUseReducer";
 import UserInfoWithState from "./components/UserInfoWithState";
+import TodoForm from "./components/todo/TodoForm";
+import TodoProvider from "./context/TodoProvider";
 
 function App() {
   return (
-    <div>
-      {/* <UserInfoWithState /> */}
-      <UserInfoWIthUseReducer />
-      {/* <Example /> */}
-    </div>
+    <TodoProvider>
+      <div>
+        <TodoForm />
+      </div>
+    </TodoProvider>
   );
 }
 

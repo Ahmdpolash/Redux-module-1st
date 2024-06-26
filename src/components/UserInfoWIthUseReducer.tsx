@@ -9,7 +9,7 @@ const initialState = {
   name: "",
   email: "",
   password: "",
-  hobbies: [] as string[],
+  hobbies: [] as string[], 
 };
 
 const reducer = (currentState: typeof initialState, action: TAction) => {
